@@ -113,7 +113,7 @@ resource "aws_security_group" "app" {
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
-    security_groups = [aws_security_group.web.id]
+    security_groups = [aws_security_group.web_sg.id]
   }
 
   egress {

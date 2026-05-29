@@ -14,7 +14,7 @@ output "private_subnet_ids" {
 }
 
 output "web_sg_id" {
-  value       = aws_security_group.web.id
+  value       = aws_security_group.web_sg.id
   description = "ID of the web-tier security group"
 }
 
