@@ -67,3 +67,65 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_security_group" "web_sg" {
+  name        = "${var.environment}-web-sg"
+  description = "Web tier: allow HTTP and HTTPS from the internet"
+  vpc_id      = aws_vpc.this.id
+
+  ingress {
+    description = "HTTP from internet"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS from internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "All outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.environment}-web-sg"
+    Environment = var.environment
+  }
+}
+
+resource "aws_security_group" "app" {
+  name        = "${var.environment}-app-sg"
+  description = "App tier: allow port 8080 from web security group only"
+  vpc_id      = aws_vpc.this.id
+
+  ingress {
+    description     = "App port from web tier"
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.web.id]
+  }
+
+  egress {
+    description = "All outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.environment}-app-sg"
+    Environment = var.environment
+  }
+}
