@@ -1,3 +1,3 @@
-vpc_name = "dev"
+vpc_name    = "dev"
 environment = "dev"
-region = "us-west-2"
+region      = "us-west-2"
