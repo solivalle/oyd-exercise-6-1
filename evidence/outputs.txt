@@ -1,0 +1,12 @@
+% terraform output
+app_sg_id = "sg-0c103346c1b971a7b"
+private_subnet_ids = [
+  "subnet-05a4e4100b78aa3ae",
+  "subnet-01fd0fdc491e0867f",
+]
+public_subnet_ids = [
+  "subnet-02a1fc889dd04028b",
+  "subnet-0e15cfde482be84bc",
+]
+vpc_id = "vpc-00badcd765f10760b"
+web_sg_id = "sg-0bb2e1df0e5c9666a"
