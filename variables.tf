@@ -18,7 +18,7 @@ variable "region" {
 }
 variable "azs" {
   type        = list(string)
-  default     = ["us-east-1a", "us-east-1b"]
+  default     = ["us-west-2a", "us-west-2b"]
   description = "List of availability zones to deploy subnets into"
 }
 variable "public_subnet_cidrs" {
